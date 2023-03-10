@@ -1,0 +1,9 @@
+jinja2
+autopep8
+flask
+Flask-SQLAlchemy
+Flask-Login
+Flask-WTF
+Flask-Bcrypt
+pandas
+toml

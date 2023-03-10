@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+{% block title %}Dashboard{% endblock %}
+{% from "macros.html" import update_user_modal, test %}
+{% block content %}
+<div class="">
+    <h1>Welcome, {{ user.username }}!</h1>
+    {% if not admin %}
+    {% if user.balance < -10 %} <h2 style="color: brown">your balance is {{ user.balance }} €</h2>
+        <h2 style="color:brown">please square your account!</h2>
+        {% elif user.balance < 0 %} <h2 style="color: brown">your balance is {{ user.balance }} €</h2>
+            {% else %}
+            <h2 style="color:rgb(4, 100, 4)">your balance is {{ user.balance }} €</h2>
+            {% endif %}
+
+            <div class="action-buttons">
+                <form action="/take-coffee" method="post"><input class="btn btn-primary" type="submit"
+                        value="I take a coffee">
+                </form>
+                <form action="/foam-system" method="post"><input class="btn btn-primary" type="submit"
+                        value="Foam System (+1 coffee)">
+                </form>
+                <form action="/deep-cleaning" method="post"><input class="btn btn-primary" type="submit"
+                        value="Deep Cleaning (+3 coffees)">
+                </form>
+            </div>
+            {% endif %}
+</div>
+
+
+
+{% if admin %}
+<!-- <div class="action-buttons">
+            <form action="/adjust-coffee-price" method="post">
+                <div style="display: flex; flex-direction: row;">
+                    <input type="text" name="price_per_coffee" id="">
+                    <input class="btn btn-primary" type="submit" value="update per coffee">
+                </div>
+            </form>
+        </div> -->
+
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for usernames..">
+            <table id="myTable" class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">username</th>
+                        <th scope="col">balance</th>
+                        <th scope="col">password</th>
+                        <th scope="col">email</th>
+                        <th scope="col">action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if users %}
+                    {% for user in users %}
+                    <tr>
+                        <th scope="row">{{ user.id }}</th>
+                        <td>{{ user.username }}</td>
+                        <td>{{ user.balance }}</td>
+                        <td>{{ user.password }}</td>
+                        <td>{{ user.email }}</td>
+                        <td>
+                            <div class="action-buttons">
+                                <form action="{{'/update-user/'~user.id}}" style="display: flex; flex-direction: row;"
+                                    method="post">
+                                    <input type="text" name="new_balance">
+                                    <button type="submit" class="btn btn-info">update balance</button>
+                                </form>
+                            </div>
+                        </td>
+
+                        {% endfor %}
+                        {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<script>
+    function myFunction() {
+        // Declare variables
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("myTable");
+        tr = table.getElementsByTagName("tr");
+
+        // Loop through all table rows, and hide those who don't match the search query
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[0];
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+</script>
+{% endif %}
+{% endblock content %}

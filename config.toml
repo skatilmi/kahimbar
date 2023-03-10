@@ -1,0 +1,5 @@
+price_per_coffee = 0.4 # in units of EUR
+foam_system_interval = 86400 # 1 day
+foam_system_reward = 1 # in units of PRICE_PER_COFFEE
+deep_cleaning_interval = 604800 # 7 days
+deep_cleaning_reward = 3 # in units of PRICE_PER_COFFEE

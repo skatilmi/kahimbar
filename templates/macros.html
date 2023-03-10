@@ -1,0 +1,32 @@
+{% macro input(name, value='', type='text', size=20) -%}
+<input type="{{ type }}" name="{{ name }}" value="{{value|e }}" size="{{ size }}">
+{%- endmacro %}
+
+
+{% macro update_user_modal(user) -%}
+<div class="modal fade" id="{{'myOutput'~user.id}}" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
+        <h4 class="modal-title">Edit user: {{user.username}}</h4>
+      </div>
+      <div class="modal-body">
+        <form action="{{'/update-user/'~user.id}}" method="post">
+          <label for="">Enter new balance: </label>
+          <input type="hidden" name="user_id" value="{{user.id}}">
+          <input type="text" name="new_balance" value="{{user.balance}}">
+          <input type="submit" value="update">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+{%- endmacro %}
+
+{% macro test(user) -%}
+<button id="{{'myOutput'~user.id}}">{{user.id}}</button>
+{%- endmacro %}
