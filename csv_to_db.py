@@ -4,7 +4,7 @@ import glob
 
 
 def main(csv_location):
-    df = pd.read_csv(csv_location, header=None)
+    df = pd.read_csv(csv_location, header=None, comment="#")
     df.columns = ["id", "username", "password", "email", "balance", "rating"]
     # delete rating column
     df.drop("rating", axis=1, inplace=True)
